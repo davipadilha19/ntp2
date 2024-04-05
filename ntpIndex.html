@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo de Hora e Data do Servidor NTP em JavaScript</title>
+</head>
+<body>
+    <h1>Hora e Data do Servidor NTP</h1>
+    <p id="data-ntp"></p>
+    <p id="hora-ntp"></p>
+
+    <!-- Script JavaScript para obter a hora e a data do servidor NTP -->
+    <script>
+        // URL do serviço NTP
+        const ntpServiceUrl = 'https://worldtimeapi.org/api/ip';
+
+        // Função para obter a hora e a data do servidor NTP
+        async function getNtpTime() {
+            try {
+                // Faz uma solicitação GET para o serviço NTP
+                const response = await fetch(ntpServiceUrl);
+                const data = await response.json();
+
+                // Verifica se a resposta possui a hora e a data atual
+                if (data && data.datetime) {
+                    const ntpDateTime = new Date(data.datetime);
+                    return ntpDateTime;
+                } else {
+                    throw new Error('Resposta inválida do serviço NTP.');
+                }
+            } catch (error) {
+                console.error('Erro ao obter a hora e a data do servidor NTP:', error);
+                return null;
+            }
+        }
+
+        // Exemplo de uso da função getNtpTime
+        getNtpTime().then((ntpDateTime) => {
+            if (ntpDateTime) {
+                // Exibir a hora e a data obtida do servidor NTP
+                const dataNtpElement = document.getElementById('data-ntp');
+                dataNtpElement.textContent = 'Data do servidor NTP: ' + ntpDateTime.toLocaleDateString();
+
+                const horaNtpElement = document.getElementById('hora-ntp');
+                horaNtpElement.textContent = 'Hora do servidor NTP: ' + ntpDateTime.toLocaleTimeString();
+            } else {
+                console.log('Não foi possível obter a hora e a data do servidor NTP.');
+            }
+        });
+    </script>
+</body>
+</html>

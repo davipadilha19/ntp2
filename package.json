@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "ntp-client": "^0.5.3"
+  },
+  "name": "ntp",
+  "version": "1.0.0",
+  "main": "ntpp.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
